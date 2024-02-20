@@ -8,7 +8,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         boolean checkFile = false, win = false;
         String path = "src/main/java/Project1_6513122/";
-        String fileName = "maize_2.txt";
+        String fileName = "maize_1.txt";
 
         while(!checkFile) {
             try {
