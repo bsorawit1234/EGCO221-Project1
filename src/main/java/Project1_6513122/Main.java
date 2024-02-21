@@ -10,6 +10,8 @@ public class Main {
         boolean checkFile = false, win = false;
         String path = "src/main/java/Project1_6513122/";
         String fileName = "maize_1.txt";
+//        String[] fileName = {"maize_1.txt", "maize_2.txt", "maize_3.txt", "maize_4.txt"};
+
         while(!checkFile) {
             try {
                 Scanner scanFile = new Scanner(new File(path + fileName));
@@ -95,90 +97,72 @@ public class Main {
                             System.out.println("Cannot move");
                         }
                     } else if(input.equals("A") || input.equals("a")) {
-//                        printAL(AL, col_size, row_size);
                         int i_idx = r_index.get(0);
-                        int rat_i = r_index.get(0);
                         int j_idx = r_index.get(1);
-                        int rat_j = r_index.get(1);
                         for(int i = 0; i < f_index.size(); i++) {
                             boolean isStart = true;
                             ArrayList<String> Path = new ArrayList<>();
-                            RatInMazeDFS.run(AL, r_index, f_index.get(i), Path);
-//                            System.out.println("Path: " + Path);
 
-                            System.out.printf("Rat path %d\n", i+1);
+                            try {
+                                System.out.printf("\n=================== Finding Food %d ==================\n", i + 1);
+                                printAL(AL, col_size, row_size);
+                                System.out.println("\nRat path");
+                                RatInMazeDFS.run(AL, r_index, f_index.get(i), Path);
+                            } catch (MyException e) {
+                                System.out.printf("No solution for Food %d\n", i + 1);
+                                continue;
+                            }
+
                             for (int j = 0; j < Path.size() - 1; j++) {
-                                System.out.printf("f_i: %d\nf_j: %d\n", f_index.get(i).get(0), f_index.get(i).get(1));
                                 if (Integer.parseInt(Path.get(j + 1)) - Integer.parseInt(Path.get(j)) == -1) {
                                     if(isStart) {
                                         System.out.printf("Start -> (row %d, col %d, R)\n", i_idx, j_idx);
                                         isStart = false;
                                     }
                                     AL.get(i_idx).set(j_idx, "1");
-//                                    System.out.println("L");
                                     j_idx -= 1;
-                                    rat_i -= 1;
-//                                    r_index.set(1, rat_i);
                                     r_index.set(1, j_idx);
-                                    System.out.printf("i_idx: %d\n", i_idx);
-                                    System.out.printf("j_idx: %d\n", j_idx);
                                     AL.get(i_idx).set(j_idx, "R");
                                     if(!(j + 1 == Path.size() - 1)) System.out.printf("Left  -> (row %d, col %d, 1) \n", i_idx, j_idx);
-                                    else System.out.printf("Left  -> (row %d, col %d, F)\n", i_idx, j_idx);
-//                                    printAL(AL, col_size, row_size);
+                                    else System.out.printf("Left  -> (row %d, col %d, F)\n\n", i_idx, j_idx);
                                 } else if (Integer.parseInt(Path.get(j + 1)) - Integer.parseInt(Path.get(j)) == 1) {
                                     if(isStart) {
                                         System.out.printf("Start -> (row %d, col %d, R)\n", i_idx, j_idx);
                                         isStart = false;
                                     }
                                     AL.get(i_idx).set(j_idx, "1");
-//                                    System.out.println("R");
                                     j_idx += 1;
-                                    rat_i += 1;
-//                                    r_index.set(1, rat_i);
                                     r_index.set(1, j_idx);
-                                    System.out.printf("i_idx: %d\n", i_idx);
-                                    System.out.printf("j_idx: %d\n", j_idx);
                                     AL.get(i_idx).set(j_idx, "R");
                                     if(!(j + 1 == Path.size() - 1)) System.out.printf("Right -> (row %d, col %d, 1)\n", i_idx, j_idx);
-                                    else System.out.printf("Right -> (row %d, col %d, F)\n", i_idx, j_idx);
-//                                    printAL(AL, col_size, row_size);
+                                    else System.out.printf("Right -> (row %d, col %d, F)\n\n", i_idx, j_idx);
                                 } else if (Integer.parseInt(Path.get(j + 1)) - Integer.parseInt(Path.get(j)) == AL.get(0).size()) {
                                     if(isStart) {
                                         System.out.printf("Start -> (row %d, col %d, R)\n", i_idx, j_idx);
                                         isStart = false;
                                     }
                                     AL.get(i_idx).set(j_idx, "1");
-//                                    System.out.println("D");
                                     i_idx += 1;
-                                    rat_j += 1;
-//                                    r_index.set(0, rat_j);
                                     r_index.set(0, i_idx);
-                                    System.out.printf("i_idx: %d\n", i_idx); System.out.printf("j_idx: %d\n", j_idx);
                                     AL.get(i_idx).set(j_idx, "R");
-//                                    printAL(AL, col_size, row_size);
                                     if(!(j + 1 == Path.size() - 1)) System.out.printf("Down  -> (row %d, col %d, 1)\n", i_idx, j_idx);
-                                    else System.out.printf("Down  -> (row %d, col %d, F)\n", i_idx, j_idx);
+                                    else System.out.printf("Down  -> (row %d, col %d, F)\n\n", i_idx, j_idx);
                                 } else if (Integer.parseInt(Path.get(j + 1)) - Integer.parseInt(Path.get(j)) == -AL.get(0).size()) {
                                     if(isStart) {
                                         System.out.printf("Start -> (row %d, col %d, R)\n", i_idx, j_idx);
                                         isStart = false;
                                     }
                                     AL.get(i_idx).set(j_idx, "1");
-//                                    System.out.println("U");
                                     i_idx -= 1;
                                     r_index.set(0, i_idx);
-                                    System.out.printf("i_idx: %d\n", i_idx);
-                                    System.out.printf("j_idx: %d\n", j_idx);
                                     AL.get(i_idx).set(j_idx, "R");
-//                                    printAL(AL, col_size, row_size);
                                     if(!(j + 1 == Path.size() - 1)) System.out.printf("Up    -> (row %d, col %d, 1)\n", i_idx, j_idx);
-                                    else System.out.printf("Up    -> (row %d, col %d, F)\n", i_idx, j_idx);
+                                    else System.out.printf("Up    -> (row %d, col %d, F)\n\n", i_idx, j_idx);
                                 }
-//                                if(j + 1 == Path.size()) AL.get(r_index.get(0)).set(r_index.get(1), "R");
-//                                printAL(AL, col_size, row_size);
                             }
+//                            printAL(AL, col_size, row_size);
                         }
+                        win = true;
                     }
 
                     for(int f = 0; f < f_index.size(); f++) {
