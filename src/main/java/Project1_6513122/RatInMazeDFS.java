@@ -5,15 +5,13 @@ import java.util.LinkedList;
 
 public class RatInMazeDFS {
     public static void run(ArrayList<LinkedList<String>> maze, ArrayList<Integer> r_index, ArrayList<Integer> f_index, ArrayList<String> path) {
+//        System.out.printf("r_i: %d\n",r_index.get(0));
+//        System.out.printf("r_j: %d\n",r_index.get(1));
         int ratNode = r_index.get(0) * maze.size() + r_index.get(1);
         int foodNode = f_index.get(0) * maze.size() + f_index.get(1);
 
-        /*
-            System.out.printf("ratNode = %d\n", ratNode);
-            for(int i = 0; i < foodNode.size(); i++) {
-                System.out.printf("foodNode = %d\n", foodNode.get(i));
-            }
-        */
+//            System.out.printf("ratNode = %d\n", ratNode);
+//                System.out.printf("foodNode = %d\n", foodNode);
 
         // Create and initialize the adjacency list for the maze
         ArrayList<LinkedList<String>> adjacencyList = createMazeAdjacencyList(maze);
