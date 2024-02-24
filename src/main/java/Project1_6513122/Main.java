@@ -192,6 +192,8 @@ public class Main {
                         } else {
                             play_more = false;
                         }
+                    } else {
+                        play_more = false;
                     }
 
 
