@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class RatInMazeDFS {
-    public static void run(ArrayList<LinkedList<String>> maze, ArrayList<Integer> r_index, ArrayList<Integer> f_index, ArrayList<String> path) throws MyException {
+    public static void run(ArrayList<LinkedList<String>> maze, ArrayList<Integer> r_index, ArrayList<Integer> f_index, ArrayList<String> path, boolean[][] visit) throws MyException {
         int ratNode = r_index.get(0) * maze.get(0).size() + r_index.get(1);
         int foodNode = f_index.get(0) * maze.get(0).size() + f_index.get(1);
         ArrayList<LinkedList<String>> adjacencyList = createMazeAdjacencyList(maze);
-        boolean[][] visited = new boolean[maze.size()][maze.get(0).size()];
+//        boolean[][] visited = new boolean[maze.size()][maze.get(0).size()];
+        boolean[][] visited = visit;
 
         if(!findPathDFS(adjacencyList, visited, String.valueOf(ratNode), foodNode, path)) throw new MyException("No solution");
     }

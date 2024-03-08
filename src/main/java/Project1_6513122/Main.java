@@ -103,6 +103,8 @@ public class Main {
                         } else if (input.equals("A") || input.equals("a")) {
                             int i_idx = r_index.get(0);
                             int j_idx = r_index.get(1);
+        boolean[][] visited = new boolean[AL.size()][AL.get(0).size()];
+        boolean isNoSolution = false;
                             for (int i = 0; i < f_index.size(); i++) {
                                 boolean isStart = true;
                                 ArrayList<String> Path = new ArrayList<>();
@@ -111,9 +113,11 @@ public class Main {
                                     System.out.printf("\n=================== Finding Food %d ==================\n", i + 1);
                                     printAL(AL, col_size, row_size);
                                     System.out.println("\nRat path");
-                                    RatInMazeDFS.run(AL, r_index, f_index.get(i), Path);
+                                    if(!isNoSolution) RatInMazeDFS.run(AL, r_index, f_index.get(i), Path, visited);
+                                    else RatInMazeDFS.run(AL, r_index, f_index.get(i), Path, new boolean[AL.size()][AL.get(0).size()]);
                                 } catch (MyException e) {
                                     System.out.printf("No solution for Food %d\n", i + 1);
+                                    isNoSolution = true;
                                     continue;
                                 }
 
