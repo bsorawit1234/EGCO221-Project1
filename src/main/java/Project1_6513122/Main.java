@@ -56,7 +56,6 @@ public class Main {
 
                         //================================================================================
 
-
                         System.out.printf("\nUser input %2d >> Enter move (U = up, D = down, L = left, R = right, A = auto)\n", ++round);
                         String input = scan.nextLine().trim();
                         int y = r_index.get(0), x = r_index.get(1);
@@ -71,7 +70,8 @@ public class Main {
                                 System.out.println("Cannot move");
                             }
                         } else if (input.equals("D") || input.equals("d")) {
-                            if (y + 1 >= 0 && (AL.get(y + 1).get(x).equals("1") || AL.get(y + 1).get(x).equals("F"))) {
+                            if(r_index.get(0) == row_size - 1) { System.out.println("Cannot move"); continue;}
+                            if (y + 1 >= 0 && (AL.get(y + 1).get(x).equals("1") || AL.get(y + 1).get(x).equals("F"))) { //error
                                 if (AL.get(y + 1).get(x).equals("F")) System.out.println("++++ Find Food ++++");
                                 AL.get(y).set(x, "1");
                                 r_index.set(0, y + 1);
@@ -91,6 +91,7 @@ public class Main {
                                 System.out.println("Cannot move");
                             }
                         } else if (input.equals("R") || input.equals("r")) {
+                            if(r_index.get(1) == col_size - 1) { System.out.println("Cannot move"); continue;}
                             if (x + 1 >= 0 && (AL.get(y).get(x + 1).equals("1") || AL.get(y).get(x + 1).equals("F"))) {
                                 if (AL.get(y).get(x + 1).equals("F")) System.out.println("++++ Find Food ++++");
                                 AL.get(y).set(x, "1");
