@@ -203,12 +203,15 @@ public class Main {
 
                     }
 
-                    while(play_more && turn_play < (fileNameList.length - 1)) { // Last round does not show
+                    while(play_more && turn_play < (fileNameList.length)) { // Last round does not show
                         System.out.println("Do you want to play more (Y/N) = ");
                         String choice = scan.nextLine().trim();
 
                         if (choice.equals("y") || choice.equals("Y")) {
                             play_more = true;
+                            if(turn_play == fileNameList.length - 1) {
+                                System.out.println("No maize level left, coming soon!!");
+                            }
                             turn_play++;
                             break;
                         } else if(choice.equals("n") || choice.equals("N")){
