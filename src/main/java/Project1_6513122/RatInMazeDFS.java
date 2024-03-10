@@ -78,11 +78,4 @@ public class RatInMazeDFS {
             }
         return false; // Path not found
     }
-
-    // Function to print the adjacency list
-    private static void printAdjacencyList(ArrayList<LinkedList<String>> adjacencyList) {
-        for (int i = 0; i < adjacencyList.size(); i++) {
-            System.out.println("Node " + i + ": " + adjacencyList.get(i));
-        }
-    }
 }
