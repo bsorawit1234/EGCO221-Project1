@@ -8,10 +8,22 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 //        boolean checkFile = false, win = false, play_more = false;
-        boolean play_more = false;
+        boolean play_more = true;
         int turn_play = 0; // should lower or equal 4
         String path = "src/main/java/Project1_6513122/";
         String[] fileNameList = {"maize_1.txt", "maize_2.txt", "maize_3.txt", "maize_4.txt"};
+
+        System.out.println("======== Rat in Maize ========");
+        System.out.println("    The objective of Rat in Maize is to take the rat to collect all the food.\n");
+        System.out.println("======== How to play ========");
+        System.out.println("    To pass each level, we can move the rat by pressing U(up), D(down), L(left), R(right)");
+        System.out.println("    A(auto mode) and can move each round only once. When the food is completely stored, ");
+        System.out.println("    the program will ask if we want to play the next level. If you want to continue playing,");
+        System.out.println("    press Y. If you don't want to continue playing, press N. Auto mode (A) means the rat");
+        System.out.println("    will find its own way to find food until it's gone. Then it will show us the path");
+        System.out.println("    that the rat traveled.\n");
+        System.out.println("If you are ready to play press Enter :");
+        scan.nextLine();
 
         do {
             String fileName = fileNameList[turn_play];
@@ -49,13 +61,13 @@ public class Main {
                         row_size++;
                     }
 
+
                     printAL(AL, col_size, row_size);
 
                     int round = 0;
                     while (!win) {
 
                         //================================================================================
-
 
                         System.out.printf("\nUser input %2d >> Enter move (U = up, D = down, L = left, R = right, A = auto)\n", ++round);
                         String input = scan.nextLine().trim();
@@ -71,7 +83,8 @@ public class Main {
                                 System.out.println("Cannot move");
                             }
                         } else if (input.equals("D") || input.equals("d")) {
-                            if (y + 1 >= 0 && (AL.get(y + 1).get(x).equals("1") || AL.get(y + 1).get(x).equals("F"))) {
+                            if(r_index.get(0) == row_size - 1) { System.out.println("Cannot move"); continue;}
+                            if (y + 1 >= 0 && (AL.get(y + 1).get(x).equals("1") || AL.get(y + 1).get(x).equals("F"))) { //error
                                 if (AL.get(y + 1).get(x).equals("F")) System.out.println("++++ Find Food ++++");
                                 AL.get(y).set(x, "1");
                                 r_index.set(0, y + 1);
@@ -91,6 +104,7 @@ public class Main {
                                 System.out.println("Cannot move");
                             }
                         } else if (input.equals("R") || input.equals("r")) {
+                            if(r_index.get(1) == col_size - 1) { System.out.println("Cannot move"); continue;}
                             if (x + 1 >= 0 && (AL.get(y).get(x + 1).equals("1") || AL.get(y).get(x + 1).equals("F"))) {
                                 if (AL.get(y).get(x + 1).equals("F")) System.out.println("++++ Find Food ++++");
                                 AL.get(y).set(x, "1");
@@ -175,6 +189,8 @@ public class Main {
 //                            printAL(AL, col_size, row_size);
                             }
                             win = true;
+                        } else {
+                            System.out.println("------- Please try to move again -------");
                         }
 
                         for (int f = 0; f < f_index.size(); f++) {
@@ -187,17 +203,21 @@ public class Main {
 
                     }
 
-                    if(turn_play < (fileNameList.length - 1)) { // Last round does not show
+                    while(play_more && turn_play < (fileNameList.length)) { // Last round does not show
                         System.out.println("Do you want to play more (Y/N) = ");
                         String choice = scan.nextLine().trim();
                         if (choice.equals("y") || choice.equals("Y")) {
                             play_more = true;
+                            if(turn_play == fileNameList.length - 1) {
+                                System.out.println("No maize level left, coming soon!!");
+                            }
                             turn_play++;
-                        } else {
+                            break;
+                        } else if(choice.equals("n") || choice.equals("N")){
                             play_more = false;
+                        } else {
+                            System.out.println("Invalid input. Please enter 'Y' or 'N'.");
                         }
-                    } else {
-                        play_more = false;
                     }
 
 
